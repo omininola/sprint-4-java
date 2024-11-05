@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.sql.Date;
 
 @Getter @Setter
-public class CadastroClienteDTO {
+public class AtualizacaoClienteDTO {
 
     @NotBlank(message = "O campo email é obrigatório")
     @Email
@@ -28,6 +28,6 @@ public class CadastroClienteDTO {
     @JsonbDateFormat("dd/MM/yyyy")
     private Date dataNascimento;
 
-    @NotBlank(message = "O campo status é obrigatório")
+    @NotNull(message = "O campo status é obrigatório")
     private char statusConta;
 }

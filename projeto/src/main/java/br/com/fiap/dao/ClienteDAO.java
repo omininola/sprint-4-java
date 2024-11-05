@@ -16,6 +16,8 @@ public class ClienteDAO {
             "(id_cliente, email_cliente, nm_cliente, user_cliente, senha_cliente, dt_nascimento, st_conta) " +
             "VALUES (clientes_seq.NEXTVAL, ?, ?, ?, ?, TO_DATE(?, 'dd/MM/yyyy'), ?)";
 
+    private static final String SELECT_LOGIN_SQL = "SELECT * FROM " + TABLE_NAME + " WHERE email_cliente = ? AND senha_cliente = ?";
+
     private static final String SELECT_ALL_SQL = "SELECT * FROM " + TABLE_NAME;
 
     private static final String SELECT_BY_ID_SQL = "SELECT * FROM " + TABLE_NAME + " WHERE id_cliente = ?";
@@ -54,13 +56,13 @@ public class ClienteDAO {
     }
 
     public void cadastrar(Cliente cliente) throws SQLException {
-        PreparedStatement stmt = conexao.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement stmt = conexao.prepareStatement(INSERT_SQL);
         preencherStatementComCliente(stmt, cliente);
         stmt.executeUpdate();
     }
 
     public Cliente login(Cliente cliente) throws SQLException, CredenciaisIncorretasException {
-        PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE email_cliente = ? AND senha_cliente = ?");
+        PreparedStatement stmt = conexao.prepareStatement(SELECT_LOGIN_SQL);
         stmt.setString(1, cliente.getEmail());
         stmt.setString(2, cliente.getSenha());
         ResultSet rs = stmt.executeQuery();

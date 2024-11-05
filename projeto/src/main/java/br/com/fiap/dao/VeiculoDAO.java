@@ -27,7 +27,6 @@ public class VeiculoDAO {
 
     private static final String DELETE_SQL = "DELETE FROM " + TABLE_NAME + " WHERE id_veiculo = ?";
 
-
     private Connection conexao;
 
     public VeiculoDAO(Connection conexao) {
